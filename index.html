@@ -2,99 +2,136 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DarkWeb — Enter the Shadows</title>
   <meta name="description" content="DarkWeb is a dark-themed immersive marketplace. Register, pay $100 for membership and explore exclusive puzzles and collectibles.">
+  
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom CSS -->
   <link rel="stylesheet" href="styles.css">
-  <!-- Stripe.js (required for client payment flow) -->
+
+  <!-- Stripe.js for payments -->
   <script src="https://js.stripe.com/v3/"></script>
 </head>
-<body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <div class="logo" aria-hidden="true">dark<span class="glow">web</span></div>
-      <nav class="nav" aria-label="Main">
-        <a href="#about">About</a>
-        <a href="#features">Features</a>
-        <a href="#membership">Membership</a>
-        <a href="#contact">Contact</a>
+<body class="bg-black text-light">
+
+  <!-- Header -->
+  <header class="container-fluid py-3 border-bottom border-secondary" style="background-color: #000;">
+    <div class="container d-flex justify-content-between align-items-center">
+      <div class="d-flex align-items-center">
+        <img src="dark wen.jpg" alt="DarkWeb Logo" class="logo-img me-2" style="height:50px;">
+        <span class="h4 text-white fw-bold">DarkWeb</span>
+      </div>
+      <nav>
+        <ul class="nav">
+          <li class="nav-item"><a class="nav-link text-light" href="#about">About</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#features">Features</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#membership">Membership</a></li>
+          <li class="nav-item"><a class="nav-link text-light" href="#contact">Contact</a></li>
+        </ul>
       </nav>
     </div>
   </header>
 
-  <main>
-    <!-- Hero -->
-    <section class="hero" id="home">
-      <div class="container hero-inner">
-        <h1 class="glitch" data-text="D A R K W E B">D A R K W E B</h1>
-        <p class="lead">A chilling, neon-glitch marketplace. Pay $100 to unlock the shadows.</p>
-        <div class="hero-cta">
-          <a class="btn" href="#membership">Unlock Premium — $100</a>
-          <button id="sneakPeek" class="btn ghost">Sneak Peek</button>
-        </div>
-      </div>
-    </section>
+  <!-- Hero Section -->
+  <section class="hero text-center d-flex align-items-center justify-content-center" style="min-height: 60vh; background-color: #000;">
+    <div class="container">
+      <h1 class="glitch display-1" data-text="D A R K W E B">D A R K W E B</h1>
+      <p class="lead mt-3">A chilling, neon-glitch marketplace. Pay $100 to unlock the shadows.</p>
+      <a href="#membership" class="btn btn-danger btn-lg mt-3">Unlock Premium — $100</a>
+    </div>
+  </section>
 
-    <!-- About -->
-    <section id="about" class="container section about">
-      <div class="about-inner">
-        <h2>About DarkWeb</h2>
-        <p>DarkWeb is an immersive, horror-themed marketplace for thrill seekers and storytellers. Register and complete a secure $100 membership purchase to unlock premium zones: secret listings, limited digital collectibles, interactive mysteries, and evolving storylines.</p>
-      </div>
-    </section>
+  <!-- About Section -->
+  <section id="about" class="container py-5">
+    <h2 class="mb-3">About DarkWeb</h2>
+    <p>DarkWeb is an immersive, horror-themed marketplace for thrill seekers and storytellers. Register and complete a secure $100 membership purchase to unlock premium zones: secret listings, limited digital collectibles, interactive mysteries, and evolving storylines.</p>
+  </section>
 
-    <!-- Features -->
-    <section id="features" class="container section features">
-      <h2>Vault Features</h2>
-      <div class="grid">
-        <div class="card"><h3>Secret Listings</h3><p>Curated content only for members.</p></div>
-        <div class="card"><h3>Limited Collectibles</h3><p>Exclusive digital items & badges.</p></div>
-        <div class="card"><h3>Interactive Puzzles</h3><p>ARG-style riddles that reveal new content.</p></div>
-        <div class="card"><h3>Profile Customization</h3><p>Monospace themes, badges, and avatars.</p></div>
-      </div>
-    </section>
-
-    <!-- Membership -->
-    <section id="membership" class="container section membership">
-      <h2>Become a Shadow — $100 Membership</h2>
-      <div class="membership-grid">
-        <div class="price-card">
-          <div class="price-tag">$100 <span>one-time</span></div>
-          <ul>
-            <li>Access to secret zones</li>
-            <li>Digital collectibles</li>
-            <li>Priority puzzle hints</li>
-            <li>Member badge</li>
-          </ul>
-          <button id="startPayment" class="btn large">Pay $100 — Unlock</button>
-        </div>
-
-        <div class="checkout-card">
-          <h3>Secure Checkout</h3>
-          <p class="muted">We use Stripe for legal, secure payments. This is a fictional, entertainment-only marketplace — illegal activity is strictly forbidden.</p>
-
-          <!-- Payment status & form placeholder -->
-          <div id="paymentStatus" class="status"></div>
-          <div id="cardElement"></div>
-          <div id="paymentActions" style="display:none;">
-            <button id="confirmPayment" class="btn">Confirm & Pay</button>
+  <!-- Features Section -->
+  <section id="features" class="container py-5">
+    <h2 class="mb-3">Vault Features</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+      <div class="col">
+        <div class="card bg-dark text-light h-100 border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Secret Listings</h5>
+            <p class="card-text">Curated content only for members.</p>
           </div>
         </div>
       </div>
-    </section>
-
-    <!-- Footer / legal -->
-    <footer id="contact" class="site-footer">
-      <div class="container">
-        <p>© <span id="year"></span> DarkWeb — Entertainment-only. All transactions processed through secure providers. Illegal goods/services are prohibited.</p>
-        <p class="small muted">Contact: support@darkweb.example (demo)</p>
+      <div class="col">
+        <div class="card bg-dark text-light h-100 border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Limited Collectibles</h5>
+            <p class="card-text">Exclusive digital items & badges.</p>
+          </div>
+        </div>
       </div>
-    </footer>
+      <div class="col">
+        <div class="card bg-dark text-light h-100 border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Interactive Puzzles</h5>
+            <p class="card-text">ARG-style riddles that reveal new content.</p>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="card bg-dark text-light h-100 border-secondary">
+          <div class="card-body">
+            <h5 class="card-title">Profile Customization</h5>
+            <p class="card-text">Monospace themes, badges, and avatars.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Ambient canvas (background effect) -->
-    <canvas id="ambientCanvas" class="ambient"></canvas>
-  </main>
+  <!-- Membership Section -->
+  <section id="membership" class="container py-5">
+    <h2 class="mb-3">Become a Shadow — $100 Membership</h2>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="card bg-dark text-light h-100 border-danger p-3">
+          <div class="card-body">
+            <h3 class="card-title">$100 <small class="text-muted">one-time</small></h3>
+            <ul>
+              <li>Access to secret zones</li>
+              <li>Digital collectibles</li>
+              <li>Priority puzzle hints</li>
+              <li>Member badge</li>
+            </ul>
+            <a id="startPayment" class="btn btn-danger mt-2">Pay $100 — Unlock</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card bg-dark text-light h-100 border-secondary p-3">
+          <h5>Secure Checkout</h5>
+          <p class="text-muted">We use Stripe for secure payments. This is a fictional, entertainment-only marketplace.</p>
+          <div id="paymentStatus"></div>
+          <div id="cardElement"></div>
+          <div id="paymentActions" style="display:none;">
+            <button id="confirmPayment" class="btn btn-danger mt-2">Confirm & Pay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
+  <!-- Footer -->
+  <footer id="contact" class="bg-black text-muted text-center py-4 border-top border-secondary">
+    <p>© <span id="year"></span> DarkWeb — Entertainment-only. All transactions are legal & secure.</p>
+    <p class="small">Contact: support@darkweb.example (demo)</p>
+  </footer>
+
+  <!-- Ambient Canvas -->
+  <canvas id="ambientCanvas" class="ambient"></canvas>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
   <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
 </body>
