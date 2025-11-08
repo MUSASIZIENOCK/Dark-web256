@@ -4,28 +4,76 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>DarkWeb — Enter the Shadows</title>
-  <meta name="description" content="DarkWeb is a dark-themed immersive marketplace. Register, pay $100 for membership and explore exclusive puzzles and collectibles.">
-  
+  <meta name="description" content="DarkWeb is a dark-themed immersive marketplace. Register and explore exclusive puzzles and collectibles.">
+
   <!-- Bootstrap CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="styles.css">
-
-  <!-- Stripe.js for payments -->
-  <script src="https://js.stripe.com/v3/"></script>
+  <style>
+    :root{
+      --bg:#000;
+      --panel:#111;
+      --muted:#777;
+      --accent:#0ff;
+      --accent2:#ff2d91;
+      --radius:12px;
+      --mono:"Courier New", Courier, monospace;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family: var(--mono); background-color: var(--bg); color:#eee; overflow-x:hidden;}
+    html { scroll-behavior: auto; } /* instant jump */
+    
+    /* Header Logo */
+    .logo-img{height:50px;width:auto;filter: drop-shadow(0 0 8px #0ff) drop-shadow(0 0 12px #ff2d91);transition: transform 0.3s, filter 0.3s;}
+    .logo-img:hover{transform: scale(1.15) rotate(-5deg);filter: drop-shadow(0 0 16px #0ff) drop-shadow(0 0 20px #ff2d91);}
+    
+    /* Navigation links */
+    .nav-link{color: var(--muted) !important; transition: color 0.3s, text-shadow 0.3s;}
+    .nav-link:hover{color: var(--accent) !important;text-shadow: 0 0 8px var(--accent), 0 0 16px var(--accent2);}
+    
+    /* Glitch Hero Text */
+    .glitch{font-size:64px;letter-spacing:10px;position:relative;display:inline-block;color:#0ff;text-shadow:0 0 6px #0ff,0 0 12px #ff2d91;}
+    .glitch::before,.glitch::after{content: attr(data-text);position:absolute;left:0;top:0;width:100%;clip: rect(0,9999px,0,0);}
+    .glitch::before{left:2px;text-shadow:-2px 0 var(--accent);animation: glitchTop 2s infinite linear;}
+    .glitch::after{left:-2px;text-shadow:2px 0 var(--accent2);animation: glitchBottom 2.7s infinite linear;}
+    @keyframes glitchTop{0%,30%,100%{clip:rect(0,9999px,0,0);}10%{clip:rect(0,9999px,10px,0);}20%{clip:rect(20px,9999px,30px,0);}}
+    @keyframes glitchBottom{0%,40%,100%{clip:rect(0,9999px,0,0);}15%{clip:rect(10px,9999px,40px,0);}25%{clip:rect(30px,9999px,80px,0);}}
+    
+    /* Hero Section */
+    .hero{background-color:#000; min-height:60vh; display:flex; align-items:center; justify-content:center; text-align:center;}
+    
+    /* Cards */
+    .card{background-color: var(--panel); border:1px solid rgba(255,255,255,0.1); border-radius: var(--radius); transition: transform 0.3s, box-shadow 0.3s;}
+    .card:hover{transform: translateY(-5px); box-shadow:0 0 20px var(--accent),0 0 40px var(--accent2);}
+    
+    /* Buttons */
+    .btn-danger{background-color: var(--accent); color:#000; border:2px solid var(--accent2); text-shadow:0 0 4px var(--accent); box-shadow:0 0 8px var(--accent),0 0 16px var(--accent2); transition: all 0.3s;}
+    .btn-danger:hover{background-color: var(--accent2); color:#fff; text-shadow:0 0 6px var(--accent),0 0 12px var(--accent2); box-shadow:0 0 16px var(--accent),0 0 32px var(--accent2); transform: scale(1.05);}
+    
+    /* Footer */
+    footer{background-color:#000; color: var(--muted); text-align:center; padding:24px 0; border-top:1px solid rgba(255,255,255,0.1);}
+    
+    /* Responsive */
+    @media (max-width: 1200px){.glitch{font-size:52px;letter-spacing:8px;}}
+    @media (max-width: 992px){.glitch{font-size:44px;letter-spacing:6px;}}
+    @media (max-width: 768px){.glitch{font-size:36px;letter-spacing:4px;}.logo-img{height:45px;}}
+    @media (max-width: 576px){.glitch{font-size:28px;letter-spacing:2px;}.logo-img{height:40px;}}
+    @media (max-width: 768px){nav ul{flex-direction:column; align-items:center; gap:10px;}}
+  </style>
 </head>
 <body class="bg-black text-light">
 
   <!-- Header -->
-  <header class="container-fluid py-3 border-bottom border-secondary" style="background-color: #000;">
+  <header class="container-fluid py-3 border-bottom border-secondary" style="background-color:#000;">
     <div class="container d-flex justify-content-between align-items-center">
       <div class="d-flex align-items-center">
-        <img src="dark wen.jpg" alt="DarkWeb Logo" class="logo-img me-2" style="height:50px;">
+        <img src="dark wen.jpg" alt="DarkWeb Logo" class="logo-img me-2">
         <span class="h4 text-white fw-bold">DarkWeb</span>
       </div>
       <nav>
         <ul class="nav">
+          <li class="nav-item"><a class="nav-link text-light" href="#home">Home</a></li>
           <li class="nav-item"><a class="nav-link text-light" href="#about">About</a></li>
           <li class="nav-item"><a class="nav-link text-light" href="#features">Features</a></li>
           <li class="nav-item"><a class="nav-link text-light" href="#membership">Membership</a></li>
@@ -35,12 +83,12 @@
     </div>
   </header>
 
-  <!-- Hero Section -->
-  <section class="hero text-center d-flex align-items-center justify-content-center" style="min-height: 60vh; background-color: #000;">
+  <!-- Home Section -->
+  <section id="home" class="hero">
     <div class="container">
-      <h1 class="glitch display-1" data-text="D A R K W E B">D A R K W E B</h1>
+      <h1 class="glitch" data-text="D A R K W E B">D A R K W E B</h1>
       <p class="lead mt-3">A chilling, neon-glitch marketplace. Pay $100 to unlock the shadows.</p>
-      <a href="#membership" class="btn btn-danger btn-lg mt-3">Unlock Premium — $100</a>
+      <a href="#membership" class="btn btn-danger mt-3">Unlock Premium — $100</a>
     </div>
   </section>
 
@@ -54,38 +102,10 @@
   <section id="features" class="container py-5">
     <h2 class="mb-3">Vault Features</h2>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
-      <div class="col">
-        <div class="card bg-dark text-light h-100 border-secondary">
-          <div class="card-body">
-            <h5 class="card-title">Secret Listings</h5>
-            <p class="card-text">Curated content only for members.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card bg-dark text-light h-100 border-secondary">
-          <div class="card-body">
-            <h5 class="card-title">Limited Collectibles</h5>
-            <p class="card-text">Exclusive digital items & badges.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card bg-dark text-light h-100 border-secondary">
-          <div class="card-body">
-            <h5 class="card-title">Interactive Puzzles</h5>
-            <p class="card-text">ARG-style riddles that reveal new content.</p>
-          </div>
-        </div>
-      </div>
-      <div class="col">
-        <div class="card bg-dark text-light h-100 border-secondary">
-          <div class="card-body">
-            <h5 class="card-title">Profile Customization</h5>
-            <p class="card-text">Monospace themes, badges, and avatars.</p>
-          </div>
-        </div>
-      </div>
+      <div class="col"><div class="card bg-dark text-light h-100 border-secondary p-3"><h5 class="card-title">Secret Listings</h5><p class="card-text">Curated content only for members.</p></div></div>
+      <div class="col"><div class="card bg-dark text-light h-100 border-secondary p-3"><h5 class="card-title">Limited Collectibles</h5><p class="card-text">Exclusive digital items & badges.</p></div></div>
+      <div class="col"><div class="card bg-dark text-light h-100 border-secondary p-3"><h5 class="card-title">Interactive Puzzles</h5><p class="card-text">ARG-style riddles that reveal new content.</p></div></div>
+      <div class="col"><div class="card bg-dark text-light h-100 border-secondary p-3"><h5 class="card-title">Profile Customization</h5><p class="card-text">Monospace themes, badges, and avatars.</p></div></div>
     </div>
   </section>
 
@@ -103,7 +123,7 @@
               <li>Priority puzzle hints</li>
               <li>Member badge</li>
             </ul>
-            <a id="startPayment" class="btn btn-danger mt-2">Pay $100 — Unlock</a>
+            <a class="btn btn-danger mt-2">Pay $100 — Unlock</a>
           </div>
         </div>
       </div>
@@ -111,28 +131,19 @@
         <div class="card bg-dark text-light h-100 border-secondary p-3">
           <h5>Secure Checkout</h5>
           <p class="text-muted">We use Stripe for secure payments. This is a fictional, entertainment-only marketplace.</p>
-          <div id="paymentStatus"></div>
-          <div id="cardElement"></div>
-          <div id="paymentActions" style="display:none;">
-            <button id="confirmPayment" class="btn btn-danger mt-2">Confirm & Pay</button>
-          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
+  <!-- Contact/Footer Section -->
   <footer id="contact" class="bg-black text-muted text-center py-4 border-top border-secondary">
-    <p>© <span id="2005"></span> DarkWeb. All transactions are legal & secure.</p>
-    <p class="small">Contact: support@darkweb.</p>
+    <p>© 2005 DarkWeb — Entertainment-only. All transactions are legal & secure.</p>
+    <p class="small">Contact: support@darkweb.example (demo)</p>
   </footer>
-
-  <!-- Ambient Canvas -->
-  <canvas id="ambientCanvas" class="ambient"></canvas>
 
   <!-- Bootstrap JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="main.js"></script>
-  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+
 </body>
 </html>
