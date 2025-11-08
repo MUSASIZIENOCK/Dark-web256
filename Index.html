@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>DarkWeb — Enter the Shadows</title>
+  <meta name="description" content="DarkWeb is a dark-themed immersive marketplace. Register, pay $100 for membership and explore exclusive puzzles and collectibles.">
+  <link rel="stylesheet" href="styles.css">
+  <!-- Stripe.js (required for client payment flow) -->
+  <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <div class="logo" aria-hidden="true">dark<span class="glow">web</span></div>
+      <nav class="nav" aria-label="Main">
+        <a href="#about">About</a>
+        <a href="#features">Features</a>
+        <a href="#membership">Membership</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero -->
+    <section class="hero" id="home">
+      <div class="container hero-inner">
+        <h1 class="glitch" data-text="D A R K W E B">D A R K W E B</h1>
+        <p class="lead">A chilling, neon-glitch marketplace. Pay $100 to unlock the shadows.</p>
+        <div class="hero-cta">
+          <a class="btn" href="#membership">Unlock Premium — $100</a>
+          <button id="sneakPeek" class="btn ghost">Sneak Peek</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="container section about">
+      <div class="about-inner">
+        <h2>About DarkWeb</h2>
+        <p>DarkWeb is an immersive, horror-themed marketplace for thrill seekers and storytellers. Register and complete a secure $100 membership purchase to unlock premium zones: secret listings, limited digital collectibles, interactive mysteries, and evolving storylines.</p>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section id="features" class="container section features">
+      <h2>Vault Features</h2>
+      <div class="grid">
+        <div class="card"><h3>Secret Listings</h3><p>Curated content only for members.</p></div>
+        <div class="card"><h3>Limited Collectibles</h3><p>Exclusive digital items & badges.</p></div>
+        <div class="card"><h3>Interactive Puzzles</h3><p>ARG-style riddles that reveal new content.</p></div>
+        <div class="card"><h3>Profile Customization</h3><p>Monospace themes, badges, and avatars.</p></div>
+      </div>
+    </section>
+
+    <!-- Membership -->
+    <section id="membership" class="container section membership">
+      <h2>Become a Shadow — $100 Membership</h2>
+      <div class="membership-grid">
+        <div class="price-card">
+          <div class="price-tag">$100 <span>one-time</span></div>
+          <ul>
+            <li>Access to secret zones</li>
+            <li>Digital collectibles</li>
+            <li>Priority puzzle hints</li>
+            <li>Member badge</li>
+          </ul>
+          <button id="startPayment" class="btn large">Pay $100 — Unlock</button>
+        </div>
+
+        <div class="checkout-card">
+          <h3>Secure Checkout</h3>
+          <p class="muted">We use Stripe for legal, secure payments. This is a fictional, entertainment-only marketplace — illegal activity is strictly forbidden.</p>
+
+          <!-- Payment status & form placeholder -->
+          <div id="paymentStatus" class="status"></div>
+          <div id="cardElement"></div>
+          <div id="paymentActions" style="display:none;">
+            <button id="confirmPayment" class="btn">Confirm & Pay</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer / legal -->
+    <footer id="contact" class="site-footer">
+      <div class="container">
+        <p>© <span id="year"></span> DarkWeb — Entertainment-only. All transactions processed through secure providers. Illegal goods/services are prohibited.</p>
+        <p class="small muted">Contact: support@darkweb.example (demo)</p>
+      </div>
+    </footer>
+
+    <!-- Ambient canvas (background effect) -->
+    <canvas id="ambientCanvas" class="ambient"></canvas>
+  </main>
+
+  <script src="main.js"></script>
+  <script>document.getElementById('year').textContent = new Date().getFullYear();</script>
+</body>
+</html>
